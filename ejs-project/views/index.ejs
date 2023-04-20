@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>To-Do List</title>
+  </head>
+  <body>
+    <h1>To-Do List</h1>
+    <form method="POST" action="/todos">
+      <label for="title">Add a new to-do item:</label>
+      <input type="text" id="title" name="title">
+      <button type="submit">Add</button>
+    </form>
+    <ul>
+      <% todos.forEach(todo => { %>
+        <li>
+          <% if (todo.completed) { %>
+            <s><%= todo.title %></s>
+          <% } else { %>
+            <%= todo.title %>
+          <% } %>
+          <form method="POST" action="/todos/<%= todo._id %>">
+            <button type="submit">
+              <% if (todo.completed) { %>
+                Mark as Incomplete
+              <% } else { %>
+                Mark as Complete
+              <% } %>
+            </button>
+          </form>
+          <form method="POST" action="/todos/<%= todo._id %>/delete">
+            <button type="submit">Delete</button>
+          </form>
+        </li>
+      <% }); %>
+    </ul>
+  </body>
+</html>
